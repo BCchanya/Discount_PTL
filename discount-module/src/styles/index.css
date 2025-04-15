@@ -1,0 +1,73 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #213547;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  padding: 5px 10px;
+  /* background-color: #4d54e6; */
+  color: black;
+  border-radius: 6px 6px 0 0;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 6px 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.button-primary {
+  background-color: #646cff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button-primary:hover {
+  background-color: #4d54e6;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th,
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}

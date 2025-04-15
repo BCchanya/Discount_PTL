@@ -1,0 +1,19 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.app-wrapper {
+  padding: 2rem;
+  background-color: #f6f9fc;
+  min-height: 100vh;
+}
