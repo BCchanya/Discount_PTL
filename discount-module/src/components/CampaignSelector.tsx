@@ -17,6 +17,9 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
     });
   };
 
+  const [fixedAmount, setFixedAmount] = React.useState<number | null>(null);
+  const [percentage, setPercentage] = React.useState<number | null>(null);
+
   return (
     <div className="container">
       <h2 className="title">Discount Campaigns</h2>
@@ -27,9 +30,21 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
           <label>Fixed Amount</label>
           <input
             type="number"
-            onChange={(e) =>
-              updateCampaign({ type: "fixed", amount: Number(e.target.value) })
-            }
+            value={fixedAmount ?? ""}
+            disabled={percentage !== null && percentage > 0}
+            onChange={(e) => {
+              const value = e.target.value ? Number(e.target.value) : null;
+              setFixedAmount(value);
+              setPercentage(null); // reset percentage
+              setCampaigns((prev) => [
+                ...prev.filter((c) => c.type !== "percentage"),
+              ]);
+              if (value !== null && value > 0) {
+                updateCampaign({ type: "fixed", amount: value });
+              } else {
+                setCampaigns((prev) => prev.filter((c) => c.type !== "fixed"));
+              }
+            }}
             placeholder="Amount"
           />
         </div>
@@ -39,12 +54,23 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
           <label>Percentage Discount</label>
           <input
             type="number"
-            onChange={(e) =>
-              updateCampaign({
-                type: "percentage",
-                percentage: Number(e.target.value),
-              })
-            }
+            value={percentage ?? ""}
+            disabled={fixedAmount !== null && fixedAmount > 0}
+            onChange={(e) => {
+              const value = e.target.value ? Number(e.target.value) : null;
+              setPercentage(value);
+              setFixedAmount(null); // reset fixed
+              setCampaigns((prev) => [
+                ...prev.filter((c) => c.type !== "fixed"),
+              ]);
+              if (value !== null && value > 0) {
+                updateCampaign({ type: "percentage", percentage: value });
+              } else {
+                setCampaigns((prev) =>
+                  prev.filter((c) => c.type !== "percentage")
+                );
+              }
+            }}
             placeholder="%"
           />
         </div>
@@ -73,7 +99,7 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
         </div>
         {/* Category Discount Amount */}
         <div className="input-group">
-          <label>Category Discount Amount</label>
+          <label>Category Discount %</label>
           <input
             type="number"
             placeholder="Amount"
