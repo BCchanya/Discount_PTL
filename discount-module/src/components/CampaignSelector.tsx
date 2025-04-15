@@ -19,6 +19,24 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
 
   const [fixedAmount, setFixedAmount] = React.useState<number | null>(null);
   const [percentage, setPercentage] = React.useState<number | null>(null);
+  const [categoryDiscountAmount, setCategoryDiscountAmount] = React.useState<
+    number | null
+  >(null);
+  const [selectedCategory, setSelectedCategory] = React.useState<Category | "">(
+    ""
+  );
+
+  React.useEffect(() => {
+    const categoryCampaign = campaigns.find(
+      (c) => c.type === "category" && c.category === selectedCategory
+    ) as Extract<CampaignType, { type: "category" }> | undefined;
+
+    if (categoryCampaign) {
+      setCategoryDiscountAmount(categoryCampaign.amount);
+    } else {
+      setCategoryDiscountAmount(null);
+    }
+  }, [campaigns, selectedCategory]);
 
   return (
     <div className="container">
@@ -79,15 +97,21 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
         <div className="input-group">
           <label>Category Discount</label>
           <select
-            onChange={(e) =>
-              updateCampaign({
-                type: "category",
-                category: categories.includes(e.target.value as Category)
-                  ? (e.target.value as Category)
-                  : "Clothing",
-                amount: 0,
-              })
-            }
+            value={selectedCategory}
+            onChange={(e) => {
+              const selected = e.target.value as Category;
+              setSelectedCategory(selected);
+              if (
+                categoryDiscountAmount !== null &&
+                categoryDiscountAmount > 0
+              ) {
+                updateCampaign({
+                  type: "category",
+                  category: selected,
+                  amount: categoryDiscountAmount,
+                });
+              }
+            }}
           >
             <option value="">Select Category</option>
             {categories.map((cat) => (
@@ -102,13 +126,23 @@ const CampaignSelector: React.FC<Props> = ({ campaigns, setCampaigns }) => {
           <label>Category Discount %</label>
           <input
             type="number"
+            value={categoryDiscountAmount ?? ""}
             placeholder="Amount"
-            onBlur={(e) => {
-              const category = campaigns.find(
-                (c) => c.type === "category"
-              ) as Extract<CampaignType, { type: "category" }>;
-              if (category)
-                updateCampaign({ ...category, amount: Number(e.target.value) });
+            onChange={(e) => {
+              const value = e.target.value ? Number(e.target.value) : null;
+              setCategoryDiscountAmount(value);
+
+              if (!selectedCategory || value === null || value <= 0) {
+                setCampaigns((prev) =>
+                  prev.filter((c) => c.type !== "category")
+                );
+              } else {
+                updateCampaign({
+                  type: "category",
+                  category: selectedCategory,
+                  amount: value,
+                });
+              }
             }}
           />
         </div>

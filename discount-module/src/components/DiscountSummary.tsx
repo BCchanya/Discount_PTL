@@ -29,32 +29,34 @@ const DiscountSummary: React.FC<Props> = ({ items, campaigns }) => {
         <span>Total Before Discount:</span>
         <span>{totalBefore.toFixed(2)} THB</span>
       </div>
-      {/* {totalcoupon > 0 && ( */}
-      <div className={styles.summaryRow}>
-        <span>Discount Coupon:</span>
-        <span style={{ color: "red" }}>– {totalcoupon.toFixed(2)} THB</span>
-      </div>
-      {/* )}
-      {/* {totalcoupon > 0 && ( */}
-      <div className={styles.summaryRow}>
-        <span>Discount By Category %:</span>
-        <span style={{ color: "red" }}>– {totalbycatagory.toFixed(2)} THB</span>
-      </div>
-      {/* )}
+      {totalcoupon > 0 && (
+        <div className={styles.summaryRow}>
+          <span>Discount Coupon:</span>
+          <span style={{ color: "red" }}>– {totalcoupon.toFixed(2)} THB</span>
+        </div>
+      )}
+      {totalbycatagory > 0 && (
+        <div className={styles.summaryRow}>
+          <span>Discount By Category %:</span>
+          <span style={{ color: "red" }}>
+            – {totalbycatagory.toFixed(2)} THB
+          </span>
+        </div>
+      )}
 
-      {discountPoint > 0 && ( */}
-      <div className={styles.summaryRow}>
-        <span>Discount Point (max 20% on top):</span>
-        <span style={{ color: "red" }}>– {discountPoint.toFixed(2)} THB</span>
-      </div>
-      {/* )} */}
+      {discountPoint > 0 && (
+        <div className={styles.summaryRow}>
+          <span>Discount Point (max 20% on top):</span>
+          <span style={{ color: "red" }}>– {discountPoint.toFixed(2)} THB</span>
+        </div>
+      )}
 
-      {/* {totalseason > 0 && ( */}
-      <div className={styles.summaryRow}>
-        <span>Discount Season:</span>
-        <span style={{ color: "red" }}>– {totalseason.toFixed(2)} THB</span>
-      </div>
-      {/* )} */}
+      {totalseason > 0 && (
+        <div className={styles.summaryRow}>
+          <span>Discount Season:</span>
+          <span style={{ color: "red" }}>– {totalseason.toFixed(2)} THB</span>
+        </div>
+      )}
 
       <div className={styles.totalRow}>
         <span>Total Discount : </span>

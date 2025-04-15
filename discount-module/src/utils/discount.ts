@@ -75,10 +75,7 @@ export const applyDiscounts = (
       totalByCatagory += catSum * (category.amount / 100);
       total -= catSum * (category.amount / 100);
     }
-
-    // total = Math.min(catSum, category.amount);
-    // totalByCatagory += catSum * (category.amount / 100);
-    // total -= catSum * (category.amount / 100);
+    //console.log("category totalByCatagory:", totalByCatagory);
   }
   if (points) {
     const maxDiscount = total * 0.2;
@@ -86,7 +83,7 @@ export const applyDiscounts = (
     total -= discountPoints;
     totalpoint = discountPoints;
   }
-  console.log("Bef seasonal:", total);
+  //console.log("Bef seasonal:", total);
   // Seasonal Campaigns
   const seasonal = getCampaign("seasonal") as Extract<
     CampaignType,
@@ -108,7 +105,7 @@ export const applyDiscounts = (
     }
   }
 
-  console.log("Total after discounts:", total);
+  //console.log("Total after discounts:", total);
 
   return Math.max(0, total);
 };
